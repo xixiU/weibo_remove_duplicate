@@ -6,6 +6,7 @@
 // @author       xixiu
 // @match        *://weibo.com/*
 // @match        *://m.weibo.cn/*
+// @match        *://*.weibo.com/*
 
 // @grant        none
 // ==/UserScript==
