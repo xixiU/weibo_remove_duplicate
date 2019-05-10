@@ -1,19 +1,25 @@
 // ==UserScript==
-// @name         微博去重
+// @name         微博去重——temp
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.15
 // @description  微博去除重复内容
 // @author       xixiu
 // @match        *://weibo.com/*
 // @match        *://m.weibo.cn/*
 // @match        *://*.weibo.com/*
-
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
     MakeForm();
+    window.onload = function () {
+        //alert('onload');
+        var origin_filter='';//设置每次刷新时，永远都不想见到的关键词
+        if (origin_filter!=''){
+            updateUi(origin_filter);
+        }
+    };
 
     // Your code here...
 })();
@@ -56,28 +62,39 @@ function MakeForm()
 function validateForm() {
     var x = document.forms["form1"]["removeData"].value;
 
-
     if (x == null || x == ""||x ==' ') {
         alert("需要输入字符串。");
         return false;
     }
+    updateUi(x);
+}
+
+//更新页面
+function updateUi(x){
+    console.log(x);
     //这里需要区分m.weibo.cn【手机端】//weibo.com【pc端】
     var url = window.location.href;
     console.log(url);
     var doc;
-    if(url.indexOf('weibo.com'))//pc端
-        doc = document.getElementsByClassName('WB_cardwrap WB_feed_type S_bg2 WB_feed_like')
-    else if(url.indexOf('m.weibo.cn')){//移动端
-        doc = document.getElementsByClassName('wb-item-wrap')
+    if(url.indexOf('weibo.com')>-1){//pc端
+        doc = document.getElementsByClassName('WB_cardwrap WB_feed_type S_bg2 WB_feed_like');
     }
-    else
+    else if(url.indexOf('m.weibo.cn')>-1){//移动端
+        doc = document.getElementsByClassName('wb-item-wrap');
+        console.log(document.getElementsByClassName('wb-item-wrap'));
+    }
+    else{
         alert('匹配url错误');
-
-
+    }
+    console.log(doc);
+    console.log(typeof doc);
+    console.log(typeof doc[0]);
     for(var i =0;i<doc.length;++i){
         //console.log(doc[i].innerText.toString());
-        if(doc[i].innerText.indexOf(x)>-1)
+        if(doc[i].innerText.indexOf(x)>-1){
             doc[i].innerText='';
+        }
     }
+
 }
 
