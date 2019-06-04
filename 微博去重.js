@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         微博去重——temp
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/xixiU/weibo_remove_duplicate
 // @version      0.15
 // @description  微博去除重复内容
 // @author       xixiu
